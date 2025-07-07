@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quote generator</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: linear-gradient(120deg, #f5d6e6 0%, #dc55eb 100%);
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            overflow-x: hidden;
+            /* Remove extra vertical scroll */
+            min-height: unset;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            background: rgba(255,255,255,0.97);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(220,85,235,0.15);
+            padding: 28px 12px 18px 12px;
+            margin: 24px auto 0 auto;
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            color: #dc55eb;
+            font-size: 2rem;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+            font-weight: bold;
+            /* animation removed */
+        }
+        #container1 {
+            margin-bottom: 18px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0;
+            justify-content: center;
+            /* animation removed */
+        }
+        #moodSelect {
+            animation: none !important;
+            box-shadow: none !important;
+            filter: none !important;
+            transition: none !important;
+        }
+        #quoteButton {
+            animation: shineBtn 2.5s linear infinite;
+            background: linear-gradient(90deg, #dc55eb 60%, #f5d6e6 100%);
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            box-shadow: 0 2px 12px #dc55eb44;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        #quoteButton::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -75%;
+            width: 50%; height: 100%;
+            background: linear-gradient(120deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0.2) 100%);
+            transform: skewX(-20deg);
+            animation: shineMove 2.5s linear infinite;
+        }
+        #quoteButton:hover {
+            box-shadow: 0 0 0 8px #dc55eb33, 0 0 16px 2px #dc55eb99;
+            transform: scale(1.05);
+            background: linear-gradient(90deg, #f5d6e6 60%, #dc55eb 100%);
+            color: #dc55eb;
+        }
+        @keyframes shineBtn {
+            0% { filter: brightness(1); }
+            50% { filter: brightness(1.08); }
+            100% { filter: brightness(1); }
+        }
+        @keyframes shineMove {
+            0% { left: -75%; }
+            100% { left: 120%; }
+        }
+        .important {
+            background: rgba(255,255,255,0.90);
+            border-radius: 18px;
+            box-shadow: 0 4px 18px rgba(220,85,235,0.10);
+            margin: 0 auto 12px auto;
+            padding: 10px 4px;
+            max-width: 900px;
+            /* animation removed */
+            /* Add space at the bottom so footer never overlaps */
+            margin-bottom: 32px;
+        }
+        .quote-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+        .quote-box {
+            background: linear-gradient(90deg, #f5d6e6 60%, #dc55eb 100%);
+            color: #222;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(220,85,235,0.10);
+            padding: 12px 8px;
+            font-size: 1rem;
+            font-style: italic;
+            font-weight: 500;
+            /* animation removed */
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            min-width: 120px;
+            max-width: 260px;
+            border: 2px solid transparent;
+            background-clip: padding-box, border-box;
+        }
+        .quote-box:hover {
+            transform: scale(1.04) translateY(-2px) rotate(-1deg);
+            box-shadow: 0 12px 32px 0 #dc55eb44, 0 0 16px 2px #dc55eb99;
+            background: linear-gradient(90deg, #dc55eb 60%, #f5d6e6 100%);
+            /* animation removed */
+        }
+        .footer {
+            background: rgba(255,255,255,0.90);
+            color: #222;
+            border-radius: 0;
+            box-shadow: 0 2px 8px rgba(220,85,235,0.10);
+            margin: 0;
+            padding: 10px 0;
+            width: 100vw;
+            max-width: 100vw;
+            text-align: center;
+            font-style: italic;
+            font-size: 0.95rem;
+            /* Remove fixed positioning */
+            position: static;
+            left: unset;
+            bottom: unset;
+            z-index: 10;
+            /* animation removed */
+        }
+        .important {
+            /* Add space at the bottom so footer never overlaps */
+            margin-bottom: 32px;
+        }
+        @media (max-width: 900px) {
+            .important { max-width: 98vw; }
+        }
+        @media (max-width: 700px) {
+            .container { padding: 10px 2vw; max-width: 98vw; }
+            h1 { font-size: 1.1rem; }
+            .quote-box { font-size: 0.95rem; padding: 10px 4px; min-width: 90px; max-width: 98vw; }
+        }
+        @media (max-width: 600px) {
+            .quote-row { flex-direction: column; align-items: center; }
+            .important { padding: 4px 2vw; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="margin-bottom: 10px;">Quote Generator</h1>
+        <div id="container1" style="display: flex; flex-direction: row; align-items: center; gap: 10px; margin-bottom: 0; justify-content: center;">
+            <select id="moodSelect" style="margin-bottom:0; width: 70%; max-width: 320px;">
+                <option value="" disabled selected>Select Mood</option>
+                <option value="sad">Sad</option>
+                <option value="good">Good</option>
+                <option value="motivational">Motivational</option>
+                <option value="romantic">Romantic</option>
+            </select>
+            <button id="quoteButton" style="margin:0; width: 120px; max-width: 160px; font-size: 0.92rem; padding: 7px 0;">Get a Quote</button>
+        </div>
+    </div>
+    <h1 id="special" style="margin-top: 0;">Why quotes matter and how they influence our thoughts and emotions.</h1>
+    <div class="important">
+        <!-- First Row -->
+        <div class="quote-row">
+            <div class="quote-box">
+                <h3 id="d1">Inspiration in Moments of Doubt</h3>
+                <p>Quotes can instantly uplift our mood and encourage us when we’re feeling low or unmotivated. A few words can remind us of our strength and potential.</p>
+            </div>
+            <div class="quote-box">
+                <h3>Wisdom in Simple Words</h3>
+                <p>Great thinkers, leaders, and writers condense years of experience into short, meaningful statements. Quotes give us access to that wisdom in just a sentence or two.</p>
+            </div>
+            <div class="quote-box">
+                <h3>Expressing What We Feel</h3>
+                <p>Sometimes, we struggle to express our thoughts or emotions. Quotes help us articulate those feelings clearly, often saying what we can’t find the words for.</p>
+            </div>
+        </div>
+        <!-- Second Row -->
+        <div class="quote-row">
+            <div class="quote-box">
+                <h3>Emotional Comfort</h3>
+                <p>During difficult times, quotes can offer healing and reassurance. They make us feel understood, supported, and less alone in our struggles.</p>
+            </div>
+            <div class="quote-box">
+                <h3>Encouraging Personal Growth</h3>
+                <p>Quotes challenge our thinking, push us to reflect on life, and often spark self-improvement. They act as reminders to become better versions of ourselves.</p>
+            </div>
+            <div class="quote-box">
+                <h3>Timeless Truths That Stay Relevant</h3>
+                <p>Good quotes stand the test of time. Whether from centuries ago or today, they often hold universal truths that continue to guide and inspire us throughout life.</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Nexium© 2025 Quote Generator. All rights reserved.</p>
+        <p>Created by Muhammad Tayyab</p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
